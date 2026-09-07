@@ -9,10 +9,9 @@ st.title("🤖 साबू रोबोट (Python Code Debugger)")
 try:
     api_key = st.secrets["GEMINI_API_KEY"]
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash-latest')
-    
+    model = genai.GenerativeModel('gemini-pro')
 except Exception as e:
-    st.error("API Key सेट करने में समस्या है! कृपया Streamlit Secrets जाँचें।")
+    st.error("API Key सेट करने में समस्या है! कृपया Streamlit Secrets चेक करें।")
 
 # साबू के रैंडम डायलॉग्स
 saboo_dialogues = [
@@ -30,16 +29,17 @@ user_code = st.text_area("खराब कोड यहाँ डालें:",
 if st.button("🚀 साबू से ठीक करवाओ"):
     if user_code.strip():
         random_dialogue = random.choice(saboo_dialogues)
+        
         with st.spinner(random_dialogue):
             prompt = f"""
             You are 'Saboo', a hilarious, sarcastic, and brutally roasting Python expert. 
-            Analyze this user's Python code and roast them uniquely based on their mistakes, then provide the correct code.
+            Analyze this user's Python code and roast them uniquely, then provide the correct working code.
             
             User's Code:
             {user_code}
 
             Give response in Hindi with two clear sections:
-            1. 🚨 साबू का रोस्ट: (A unique sarcastic roast about their code)
+            1. 🚨 साबू का रोस्ट: (A unique, sarcastic roast based on their specific code mistakes)
             2. ✅ सही कोड: (The corrected Python code)
             """
             try:
@@ -49,4 +49,3 @@ if st.button("🚀 साबू से ठीक करवाओ"):
                 st.error(f"AI एरर: {err}")
     else:
         st.warning("भाई, बॉक्स खाली है! पहले कुछ कोड तो लिखो!")
-    
