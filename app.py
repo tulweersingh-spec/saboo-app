@@ -9,7 +9,7 @@ st.title("🤖 साबू रोबोट (Python Code Debugger)")
 try:
     api_key = st.secrets["GEMINI_API_KEY"]
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('models/gemini-3.6-flash ')
+    model = genai.GenerativeModel('gemini-3.6-flash')
 except Exception as e:
     st.error("API Key सेट करने में समस्या है! कृपया Streamlit Secrets चेक करें।")
 
